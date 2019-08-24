@@ -1,7 +1,8 @@
-const { getData, setData } = require('./sockets')
+const { setData } = require('./sockets')
 
-const fetch     = require('node-fetch')
-const API_KEY   = 30021130
+const fetch           = require('node-fetch')
+const API_KEY         = 30021130
+const UPDATE_INTERVAL = 5000
 const endpoints = {
   TRAIN: 'http://api.openmetrolinx.com/OpenDataAPI/api/V1/ServiceataGlance/Trains/All'
 }
