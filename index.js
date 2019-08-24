@@ -1,34 +1,30 @@
 const { setData } = require('./sockets')
+const goTrains = require('./trains')
 
 const fetch           = require('node-fetch')
 const API_KEY         = 30021130
 const UPDATE_INTERVAL = 10000
 const endpoints = {
-  TRAIN: 'http://api.openmetrolinx.com/OpenDataAPI/api/V1/ServiceataGlance/Trains/All'
+  // TODO: Add other Streetcar lines...
+  STREETCAR: 'http://webservices.nextbus.com/service/publicJSONFeed?command=vehicleLocations&a=ttc&r=506&t=0'
 }
 
 async function updateData() {
-  const response = await fetch(`${endpoints['TRAIN']}?key=${API_KEY}`)
+  const streetResponse = await fetch(`${endpoints['STREETCAR']}`)
   const data = {
-    train: processGOData(await response.json())
+    train: await goTrains.getData(),
+    streetcar: processStreetcarData(await streetResponse.json())
   }
   setData(data)
-  setTimeout(updateData, 5000)
+  setTimeout(updateData, UPDATE_INTERVAL)
 }
 
-function processGOData(json) {
-  // TODO: Add all lines and all directions
-  let trains = json.Trips.Trip.filter(trip => trip.LineCode == "LE" && trip.VariantDir == "W")
-  
-  return trains.map((train) => (
-    {
-      id: train.TripNumber,
-      isMoving: train.IsInMotion,
-      position: [train.Latitude, train.Longitude],
-      cars: parseInt(train.Cars),
-      nextStation: train.NextStopCode
-    })
-  )
+
+function processStreetcarData(json) {
+  return json.vehicle.map((streetcar) => ({
+    id: streetcar.id,
+    position: [streetcar.lat, streetcar.lon]
+  }))
 }
 
 updateData()
