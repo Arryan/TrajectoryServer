@@ -13,7 +13,7 @@ async function updateData() {
     train: await response.json()
   }
   setData(data)
-  setTimeout(updateData, 5000)
+  setTimeout(updateData, UPDATE_INTERVAL)
 }
 
 updateData()

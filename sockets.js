@@ -1,4 +1,4 @@
-const ATTRIBUTES  = ['Latitude', 'Longitude', ]
+// const ATTRIBUTES  = ['Latitude', 'Longitude', ]
 const WebSocket   = require('ws')
 const port        = process.env.PORT || 8080
 const wss         = new WebSocket.Server({ port })
@@ -14,11 +14,10 @@ wss.on('connection', function connection(ws) {
 })
 
 exports.getData = ( ) => data
-exports.setData = (d) => {
-  console.log('data was updated')
-  data = d
+exports.setData = (train = {}, bus = {}, streetcar = {}, subway = {}) => {
+  data = { train, bus, streetcar, subway }
+
   for (let client of wss.clients) {
     client.send(JSON.stringify(data))
   }
 }
-console.log('sockets were setup')
