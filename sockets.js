@@ -1,13 +1,24 @@
-const WebSocket = require('ws')
-const port      = process.env.PORT || 8080
-const wss       = new WebSocket.Server({ port })
+const ATTRIBUTES  = ['Latitude', 'Longitude', ]
+const WebSocket   = require('ws')
+const port        = process.env.PORT || 8080
+const wss         = new WebSocket.Server({ port })
+let data          = {
+  train:      {},
+  bus:        {},
+  streetcar:  {},
+  subway:     {},
+}
 
 wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message)
-  });
- 
-  ws.send('something')
+  ws.send(data) 
 })
 
+exports.getData = ( ) => data
+exports.setData = (d) => {
+  console.log('data was updated')
+  data = d
+  for (let client of wss.clients) {
+    client.send(data)
+  }
+}
 console.log('sockets were setup')

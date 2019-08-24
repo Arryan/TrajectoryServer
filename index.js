@@ -1,4 +1,4 @@
-require('./sockets')
+const { getData, setData } = require('./sockets')
 
 const fetch     = require('node-fetch')
 const API_KEY   = 30021130
@@ -8,8 +8,11 @@ const endpoints = {
 
 async function updateData() {
   const response = await fetch(`${endpoints['TRAIN']}?key=${API_KEY}`)
-  const data = await response.json()
-  console.log(JSON.stringify(data))
+  const data = {
+    train: await response.json()
+  }
+  setData(data)
+  setTimeout(updateData, 5000)
 }
 
-updateData().then(()=>console.log('done'))
+updateData()
