@@ -6,6 +6,6 @@
     "ws": "^7.1.2"
   },
   "scripts": {
-    "build": "node index"
+    "start": "node index"
   }
 }
