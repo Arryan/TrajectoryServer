@@ -8,9 +8,9 @@ const turf = require('@turf/turf')
 
 exports.getData = async function() {
     let trains = await getTrainPositions()
-    trains = trains.filter(train => train.LineCode == "LE" && train.VariantDir == "E")
+    trains = trains && trains.filter(train => train.LineCode == "LE" && train.VariantDir == "E")
 
-    return (await Promise.all(trains.map(async (train) => {
+    return trains && (await Promise.all(trains.map(async (train) => {
         let next = await getStationArrival(train.NextStopCode, train.TripNumber)
         if (next == null) return
         let time = Date.parse(next.ComputedDepartureTime)
@@ -49,7 +49,8 @@ async function getStationArrival(station, train) {
 
 async function getTrainPositions(){
     let response = await fetch(`${ENDPOINT}/api/V1/ServiceataGlance/Trains/All/?key=${API_KEY}`)
-    return (await response.json()).Trips.Trip
+    const {Trips} = (await response.json())
+    return Trips && Trips.Trip
 }
 
 function getDistanceToStation(stationCode, trainLocation) {

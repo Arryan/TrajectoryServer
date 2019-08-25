@@ -5,7 +5,7 @@ const wss         = new WebSocket.Server({ port })
 let data          = {
   train:      {},
   bus:        {},
-  streetcar:  {},
+  streetcar:  [],
   subway:     {},
 }
 
