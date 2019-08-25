@@ -35,6 +35,7 @@ function processStreetcarData(json) {
         (prev.location[0] - lat)**2 + 
         (prev.location[1] - lon)**2 ),
       angle: sc.heading,
+      direction: sc.dirTag == "506_0_506" ? 0 : 1,
       ts: Date.now() - (sc.secsSinceReport * 1000),
     }
   })
