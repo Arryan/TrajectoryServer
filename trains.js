@@ -13,7 +13,7 @@ exports.getData = async function() {
     return trains && (await Promise.all(trains.map(async (train) => {
         let next = await getStationArrival(train.NextStopCode, train.TripNumber)
         if (next == null) return
-        let time = Date.parse(next.ComputedDepartureTime)
+        let time = Date.parse(next.ComputedDepartureTime + ' EDT')
 
         return {
             id: train.TripNumber,
