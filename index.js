@@ -24,7 +24,7 @@ function processStreetcarData(json) {
   const { streetcar } = getData()
   return json.vehicle.map((sc) => ({
     id: sc.id,
-    position: [sc.lat, sc.lon],
+    position: [Number(sc.lat), Number(sc.lon)],
     speed: streetcar.position === undefined ? 0 : Math.sqrt(
       (streetcar.position[0] - sc.position[0])**2 + 
       (streetcar.position[1] - sc.position[1])**2 ),
