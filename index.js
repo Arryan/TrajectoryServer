@@ -3,7 +3,7 @@ const goTrains = require('./trains')
 
 const fetch           = require('node-fetch')
 const API_KEY         = 30021130
-const UPDATE_INTERVAL = 10000
+const UPDATE_INTERVAL = 30000
 const endpoints = {
   // TODO: Add other Streetcar lines...
   STREETCAR: 'http://webservices.nextbus.com/service/publicJSONFeed?command=vehicleLocations&a=ttc&r=506&t=0'
