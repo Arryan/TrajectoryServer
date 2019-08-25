@@ -1,4 +1,4 @@
-const { setData } = require('./sockets')
+const { setData, getData } = require('./sockets')
 const goTrains = require('./trains')
 
 const fetch           = require('node-fetch')
@@ -21,9 +21,14 @@ async function updateData() {
 
 
 function processStreetcarData(json) {
-  return json.vehicle.map((streetcar) => ({
-    id: streetcar.id,
-    position: [streetcar.lat, streetcar.lon]
+  const { streetcar } = getData()
+  return json.vehicle.map((sc) => ({
+    id: sc.id,
+    position: [sc.lat, sc.lon],
+    speed: streetcar.position === undefined ? 0 : Math.sqrt(
+      (streetcar.position[0] - sc.position[0])**2 + 
+      (streetcar.position[1] - sc.position[1])**2 ),
+    ts: Date.now() - (sc.secsSinceReport * 1000),
   }))
 }
 

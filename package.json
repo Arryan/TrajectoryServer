@@ -4,5 +4,8 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "ws": "^7.1.2"
+  },
+  "scripts": {
+    "build": "node index"
   }
 }
