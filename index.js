@@ -10,10 +10,14 @@ const endpoints = {
 }
 
 async function updateData() {
+  try {
   const streetResponse = await fetch(`${endpoints['STREETCAR']}`)
   const train = await goTrains.getData()
   const streetcar = processStreetcarData(await streetResponse.json())
   setData(train, {}, streetcar)
+  } catch (err) {
+    console.log('THERE WAS ERROR', err)
+  }
   setTimeout(updateData, UPDATE_INTERVAL)
 }
 
