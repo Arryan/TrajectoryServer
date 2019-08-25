@@ -26,6 +26,7 @@ function processStreetcarData(json) {
     speed: streetcar.position === undefined ? 0 : Math.sqrt(
       (streetcar.location[0] - sc.location[0])**2 + 
       (streetcar.location[1] - sc.location[1])**2 ),
+    angle: sc.heading,
     ts: Date.now() - (sc.secsSinceReport * 1000),
   }))
 }
