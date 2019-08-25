@@ -21,7 +21,7 @@ exports.getData = async function() {
             nextStation: train.NextStopCode,
             arrivalTime: time,
             distance: getDistanceToStation(train.NextStopCode, [train.Latitude, train.Longitude]),
-            delay: train.Delay,
+            delay: train.DelaySeconds,
         }
     })))
     .filter(train => train != null)

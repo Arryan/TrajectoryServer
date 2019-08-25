@@ -6,7 +6,7 @@ const API_KEY         = 30021130
 const UPDATE_INTERVAL = 10000
 const endpoints = {
   // TODO: Add other Streetcar lines...
-  STREETCAR: 'http://webservices.nextbus.com/service/publicJSONFeed?command=vehicleLocations&a=ttc&t=0'
+  STREETCAR: 'http://webservices.nextbus.com/service/publicJSONFeed?command=vehicleLocations&a=ttc&r=506&t=0'
 }
 
 async function updateData() {
