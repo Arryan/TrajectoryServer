@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@turf/turf": "^5.1.6",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "ws": "^7.1.2"
